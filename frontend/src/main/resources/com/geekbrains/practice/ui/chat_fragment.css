@@ -1,0 +1,15 @@
+#chatName {
+    -fx-text-fill: #ffffff;
+}
+
+#lastMessage {
+    -fx-text-fill: #757f8d;
+}
+
+#chatPane:hover {
+    -fx-background-color: #445058;
+}
+
+#chatPane:selected {
+    -fx-background-color: #009587;
+}

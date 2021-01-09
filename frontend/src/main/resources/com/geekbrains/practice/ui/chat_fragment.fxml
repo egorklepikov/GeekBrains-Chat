@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="chatPane" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onChatSelected" prefHeight="50.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.geekbrains.practice.ui.ChatFragment">
+    <stylesheets>
+        <URL value="@chat_fragment.css" />
+    </stylesheets>
+    <Label fx:id="chatName" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="215.0" text="Chat name" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+    <Label fx:id="lastMessage" layoutX="14.0" layoutY="28.0" prefHeight="17.0" prefWidth="215.0" text="Last message" />
+</AnchorPane>
