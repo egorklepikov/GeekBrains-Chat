@@ -88,7 +88,6 @@ public class RegisterController implements Initializable {
     checkContinueButtonAccessibility();
   }
 
-
   private void checkContinueButtonAccessibility() {
     continueButton.setDisable(userName.getText().isEmpty() || phoneNumberField.getText().isEmpty());
   }
