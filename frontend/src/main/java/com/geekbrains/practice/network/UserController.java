@@ -37,12 +37,12 @@ public class UserController {
     return user;
   }
 
-  public Chat addNewChat() throws IllegalArgumentException {
+  public Chat addNewChat(String phoneNumber) throws IllegalArgumentException {
     if (user == null) {
       throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
     }
     Chat chat = new Chat(
-      "TEST",
+      phoneNumber,
       null,
       new ArrayList<>(),
       new FXMLLoader(getClass().getResource("/com/geekbrains/practice/ui/chat_fragment.fxml"))

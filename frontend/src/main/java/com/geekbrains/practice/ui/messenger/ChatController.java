@@ -24,9 +24,9 @@ import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
   @FXML
-  private ScrollPane scrollVBoxPane;
+  private TextField newConversationTextField;
   @FXML
-  private ImageView newChatButton;
+  private ScrollPane scrollVBoxPane;
   @FXML
   private AnchorPane notificationLabelPane;
   @FXML
@@ -52,7 +52,6 @@ public class ChatController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     sendButton.setImage(new Image("/assets/send_message.png"));
     closeButton.setImage(new Image("/assets/close_button.jpg"));
-    newChatButton.setImage(new Image("/assets/new_chat.jpg"));
     bottomPane.setVisible(false);
     scrollVBoxPane.setFitToWidth(true);
     scrollVBoxPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -81,7 +80,6 @@ public class ChatController implements Initializable {
       append(inputMessageField.getText()).
       append("\n"
     );
-
     messagesArea.appendText(message.toString());
     UserController.getInstance().getSelectedChat().getMessages().add(message.toString());
     ChatFragment chatFragment = UserController.getInstance().getSelectedChat().getFxmlLoader().getController();
@@ -174,21 +172,15 @@ public class ChatController implements Initializable {
     return fragmentIndex;
   }
 
-  public void clickedMouseNewChatListener() {
-    addChatFragment(
-      UserController.getInstance().addNewChat(),
-      UserController.getInstance().getChats().size() - 1
-    );
-    //TODO some network staff
-  }
-
-  public void enterMouseNewChatListener() {
-    newChatButton.setScaleX(1.1);
-    newChatButton.setScaleY(1.1);
-  }
-
-  public void exitMouseNewChatListener() {
-    newChatButton.setScaleX(1);
-    newChatButton.setScaleY(1);
+  public void onNewConversationKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode() == KeyCode.ENTER) {
+      addChatFragment(
+        UserController.getInstance().addNewChat(newConversationTextField.getText()),
+        UserController.getInstance().getChats().size() - 1
+      );
+      //TODO some network staff
+      newConversationTextField.setText("");
+      messagesArea.requestFocus();
+    }
   }
 }
