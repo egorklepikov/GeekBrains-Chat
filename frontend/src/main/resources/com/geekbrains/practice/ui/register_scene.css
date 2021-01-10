@@ -1,0 +1,21 @@
+.root {
+    -fx-background-color: #282e34;
+    -fx-border-color: #4d5153;
+    -fx-font-size: 13px;
+    -fx-border-width: 2px;
+}
+
+.text-field:focused {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: rgba(234, 234, 234, 0.2);
+}
+
+#topPane {
+    -fx-background-color: #3a3f47;
+}
+
+#welcomeMessage, #enterNameLabel, #enterPhoneNumber {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-family: Consolas;
+}

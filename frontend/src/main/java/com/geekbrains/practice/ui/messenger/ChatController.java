@@ -1,4 +1,4 @@
-package com.geekbrains.practice.ui;
+package com.geekbrains.practice.ui.messenger;
 
 import com.geekbrains.practice.model.Chat;
 import com.geekbrains.practice.network.UserController;

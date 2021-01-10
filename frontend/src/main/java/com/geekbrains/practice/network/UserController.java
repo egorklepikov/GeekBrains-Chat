@@ -21,18 +21,17 @@ public class UserController {
     return userController;
   }
 
-  public void loadUser() {
-    //TODO: some network staff
-    if (!requestUserInformation()) {
-      initializeUser();
-    }
+  public boolean loadUser() {
+    return requestUserInformation();
   }
 
-  private void initializeUser() {
-    user = new User("+7 913 021 22 37", "Egor", new CopyOnWriteArrayList<>());
+  public void initializeUser(String phoneNumber, String userName) {
+    //TODO: some network staff
+    user = new User(phoneNumber, userName, new CopyOnWriteArrayList<>());
   }
 
   private boolean requestUserInformation() {
+    //TODO: some network staff
     return false;
   }
 
