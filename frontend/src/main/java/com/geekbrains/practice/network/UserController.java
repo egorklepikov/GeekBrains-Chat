@@ -4,6 +4,7 @@ import com.geekbrains.practice.model.Chat;
 import com.geekbrains.practice.model.User;
 import javafx.fxml.FXMLLoader;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -22,12 +23,14 @@ public class UserController {
   }
 
   public boolean loadUser() {
+    String phoneNumber = loadUserPhoneNumber();
     return false;
   }
 
   public void initializeUser(String phoneNumber, String userName) {
-    //TODO: some network staff
     user = new User(phoneNumber, userName, new CopyOnWriteArrayList<>());
+    saveUserPhoneNumber();
+    //TODO: some network staff
   }
 
   public User getUser() throws IllegalArgumentException {
@@ -70,5 +73,30 @@ public class UserController {
       throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
     }
     return user.getChats();
+  }
+
+  private void saveUserPhoneNumber() {
+    try {
+      FileOutputStream fileOutputStream = new FileOutputStream("user_info.txt");
+      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+      objectOutputStream.writeObject(user);
+      objectOutputStream.flush();
+      objectOutputStream.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private String loadUserPhoneNumber() {
+    try {
+      FileInputStream fileInputStream = new FileInputStream("user_info.txt");
+      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+      User user = (User) objectInputStream.readObject();
+      objectInputStream.close();
+      return user.getPhoneNumber();
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return "";
   }
 }

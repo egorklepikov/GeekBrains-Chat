@@ -1,13 +1,14 @@
 package com.geekbrains.practice.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class User {
+public class User implements Serializable {
   private String phoneNumber;
-  private String userName;
-  private CopyOnWriteArrayList<Chat> chats;
-  private int selectedChatIndex;
+  private transient String userName;
+  private transient CopyOnWriteArrayList<Chat> chats;
+  private transient int selectedChatIndex;
 
   public User(String phoneNumber, String userName, CopyOnWriteArrayList<Chat> chats) {
     this.phoneNumber = phoneNumber;
