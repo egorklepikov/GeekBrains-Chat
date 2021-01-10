@@ -22,17 +22,12 @@ public class UserController {
   }
 
   public boolean loadUser() {
-    return requestUserInformation();
+    return false;
   }
 
   public void initializeUser(String phoneNumber, String userName) {
     //TODO: some network staff
     user = new User(phoneNumber, userName, new CopyOnWriteArrayList<>());
-  }
-
-  private boolean requestUserInformation() {
-    //TODO: some network staff
-    return false;
   }
 
   public User getUser() throws IllegalArgumentException {
