@@ -1,6 +1,7 @@
 package com.geekbrains.practice.ui;
 
 import com.geekbrains.practice.model.Chat;
+import com.geekbrains.practice.network.UserController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -42,7 +43,7 @@ public class ChatFragment {
     }
     chatPane.setStyle("-fx-background-color: #009587");
     lastMessage.setStyle("-fx-text-fill: #ffffff");
-    ChatsLoader.getInstance().setSelectedChatIndex(fragmentIndex);
+    UserController.getInstance().setSelectedChatIndex(fragmentIndex);
   }
 
   private void addMessages() throws IllegalArgumentException {
@@ -61,7 +62,7 @@ public class ChatFragment {
   }
 
   private void resetChatsStyle() {
-    for (Chat chat : ChatsLoader.getInstance().getChats()) {
+    for (Chat chat : UserController.getInstance().getChats()) {
       if (chat.getFxmlLoader().getController() instanceof ChatFragment) {
         ChatFragment chatFragment = chat.getFxmlLoader().getController();
         chatFragment.getChatPane().setStyle("chat_fragment.css");
@@ -71,7 +72,7 @@ public class ChatFragment {
   }
 
   public void initialize() {
-    chat = ChatsLoader.getInstance().getChats().get(fragmentIndex);
+    chat = UserController.getInstance().getChats().get(fragmentIndex);
     lastMessage.setText(chat.getLastMessage());
     chatName.setText(chat.getChatName());
   }

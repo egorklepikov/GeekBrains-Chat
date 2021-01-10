@@ -1,6 +1,7 @@
 package com.geekbrains.practice.ui;
 
 import com.geekbrains.practice.model.Chat;
+import com.geekbrains.practice.network.UserController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,24 +58,27 @@ public class ChatController implements Initializable {
     scrollVBoxPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     scrollVBoxPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     Platform.runLater(() -> messagesArea.requestFocus());
-    ChatsLoader.getInstance().loadChats();
     addChatsToVBox();
   }
 
   @FXML
   public void sendMessageWithField(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
-      messagesArea.appendText(inputMessageField.getText() + "\n");
-      ChatsLoader.getInstance().getSelectedChat().getMessages().add(inputMessageField.getText());
-      ChatFragment chatFragment = ChatsLoader.getInstance().getSelectedChat().getFxmlLoader().getController();
-      chatFragment.setLastMessage(inputMessageField.getText());
-      inputMessageField.clear();
-      inputMessageField.requestFocus();
+      updateTextArea();
       //TODO some network staff
     } else if (keyEvent.getCode() == KeyCode.ESCAPE) {
       inputMessageField.clear();
       inputMessageField.requestFocus();
     }
+  }
+
+  private void updateTextArea() {
+    messagesArea.appendText(inputMessageField.getText() + "\n");
+    UserController.getInstance().getSelectedChat().getMessages().add(inputMessageField.getText());
+    ChatFragment chatFragment = UserController.getInstance().getSelectedChat().getFxmlLoader().getController();
+    chatFragment.setLastMessage(inputMessageField.getText());
+    inputMessageField.clear();
+    inputMessageField.requestFocus();
   }
 
   @FXML
@@ -91,12 +95,7 @@ public class ChatController implements Initializable {
 
   @FXML
   public void clickedMouseListener() {
-    messagesArea.appendText(inputMessageField.getText() + "\n");
-    ChatsLoader.getInstance().getSelectedChat().getMessages().add(inputMessageField.getText());
-    ChatFragment chatFragment = ChatsLoader.getInstance().getSelectedChat().getFxmlLoader().getController();
-    chatFragment.setLastMessage(inputMessageField.getText());
-    inputMessageField.clear();
-    inputMessageField.requestFocus();
+    updateTextArea();
     //TODO some network staff
   }
 
@@ -144,7 +143,7 @@ public class ChatController implements Initializable {
   private void addChatsToVBox() {
     int fragmentIndex = 0;
     chats.getChildren().clear();
-    for (Chat chat : ChatsLoader.getInstance().getChats()) {
+    for (Chat chat : UserController.getInstance().getChats()) {
       fragmentIndex = addChatFragment(chat, fragmentIndex);
     }
   }
@@ -168,8 +167,8 @@ public class ChatController implements Initializable {
 
   public void clickedMouseNewChatListener() {
     addChatFragment(
-      ChatsLoader.getInstance().addNewChat(),
-      ChatsLoader.getInstance().getChats().size() - 1
+      UserController.getInstance().addNewChat(),
+      UserController.getInstance().getChats().size() - 1
     );
     //TODO some network staff
   }

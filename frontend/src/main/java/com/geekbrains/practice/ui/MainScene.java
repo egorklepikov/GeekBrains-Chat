@@ -1,5 +1,6 @@
 package com.geekbrains.practice.ui;
 
+import com.geekbrains.practice.network.UserController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.stage.StageStyle;
 public class MainScene extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
+    UserController.getInstance().loadUser();
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main_scene.fxml"));
     Parent root = fxmlLoader.load();
     primaryStage.initStyle(StageStyle.UNDECORATED);
