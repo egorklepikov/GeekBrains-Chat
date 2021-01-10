@@ -73,10 +73,19 @@ public class ChatController implements Initializable {
   }
 
   private void updateTextArea() {
-    messagesArea.appendText(inputMessageField.getText() + "\n");
-    UserController.getInstance().getSelectedChat().getMessages().add(inputMessageField.getText());
+    StringBuilder message = new StringBuilder();
+    message.
+      append("[").
+      append(UserController.getInstance().getUser().getUserName()).
+      append("] : ").
+      append(inputMessageField.getText()).
+      append("\n"
+    );
+
+    messagesArea.appendText(message.toString());
+    UserController.getInstance().getSelectedChat().getMessages().add(message.toString());
     ChatFragment chatFragment = UserController.getInstance().getSelectedChat().getFxmlLoader().getController();
-    chatFragment.setLastMessage(inputMessageField.getText());
+    chatFragment.setLastMessage(message.toString());
     inputMessageField.clear();
     inputMessageField.requestFocus();
   }
