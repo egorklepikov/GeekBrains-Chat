@@ -11,8 +11,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class UserController {
   private static UserController userController;
   private User user;
+  private NetworkHandler networkHandler;
 
   private UserController() {
+    networkHandler = new NetworkHandler();
   }
 
   public static UserController getInstance() {
@@ -24,13 +26,22 @@ public class UserController {
 
   public boolean loadUser() {
     String phoneNumber = loadUserPhoneNumber();
-    return false;
+    user = networkHandler.loadUserByPhone(phoneNumber);
+    return !(user == null);
   }
 
   public void initializeUser(String phoneNumber, String userName) {
     user = new User(phoneNumber, userName, new CopyOnWriteArrayList<>());
     saveUserPhoneNumber();
-    //TODO: some network staff
+    networkHandler.registerUser(user);
+  }
+
+  public boolean isUserRegistered() {
+    String phoneNumber = loadUserPhoneNumber();
+    if (phoneNumber.equals("")) {
+      return false;
+    }
+    return networkHandler.isUserRegistered(phoneNumber);
   }
 
   public User getUser() throws IllegalArgumentException {
