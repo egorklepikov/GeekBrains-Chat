@@ -24,9 +24,8 @@ public class UserController {
     return userController;
   }
 
-  public boolean loadUser() {
-    String phoneNumber = loadUserPhoneNumber();
-    user = networkHandler.loadUserByPhone(phoneNumber);
+  public boolean loadUser(String phoneNumber, String userName) {
+    user = networkHandler.loadUserByPhoneAndName(phoneNumber, userName);
     return !(user == null);
   }
 

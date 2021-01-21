@@ -1,6 +1,6 @@
 package com.geekbrains.practice.entry;
 
-import com.geekbrains.practice.listeners.UserCheckerListener;
+import com.geekbrains.practice.listeners.UserLoaderListener;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,7 +11,7 @@ public class ServerInitializer {
     try {
       ServerSocket serverSocket = new ServerSocket(8189);
       Socket socket = serverSocket.accept();
-      new UserCheckerListener(socket).startListening();
+      new UserLoaderListener(socket).startListening();
     } catch (IOException e) {
       e.printStackTrace();
     }

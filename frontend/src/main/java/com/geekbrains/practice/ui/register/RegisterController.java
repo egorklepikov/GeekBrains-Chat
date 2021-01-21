@@ -70,7 +70,7 @@ public class RegisterController implements Initializable {
 
   @FXML
   public void onActionContinueButton() throws IOException {
-    if (!UserController.getInstance().loadUser()) {
+    if (!UserController.getInstance().loadUser(phoneNumberField.getText(), userName.getText())) {
       System.out.println("User is not defined...");
       UserController.getInstance().initializeUser(phoneNumberField.getText(), userName.getText());
     }

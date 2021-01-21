@@ -15,12 +15,22 @@ public class HardcodedAuthService implements IAuthService {
   }
 
   @Override
-  public boolean isUserExist(String phoneNumber) {
+  public boolean isUserExist(String phoneNumber, String userName) {
     for (User user : users) {
-      if (user.getPhoneNumber().equals(phoneNumber)) {
+      if (user.getPhoneNumber().equals(phoneNumber) && user.getUserName().equals(userName)) {
         return true;
       }
     }
     return false;
+  }
+
+  @Override
+  public User getUserByPhoneAndName(String phoneNumber, String userName) {
+    for (User user : users) {
+      if (user.getPhoneNumber().equals(phoneNumber) && user.getUserName().equals(userName)) {
+        return user;
+      }
+    }
+    return null;
   }
 }
