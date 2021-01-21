@@ -70,7 +70,10 @@ public class RegisterController implements Initializable {
 
   @FXML
   public void onActionContinueButton() throws IOException {
-    UserController.getInstance().initializeUser(phoneNumberField.getText(), userName.getText());
+    if (!UserController.getInstance().loadUser()) {
+      System.out.println("User is not defined...");
+      UserController.getInstance().initializeUser(phoneNumberField.getText(), userName.getText());
+    }
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/geekbrains/practice/ui/main_scene.fxml"));
     Parent root = fxmlLoader.load();
     MainScene.getPrimaryStage().hide();

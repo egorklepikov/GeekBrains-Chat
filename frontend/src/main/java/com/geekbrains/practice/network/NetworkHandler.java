@@ -23,6 +23,8 @@ public class NetworkHandler implements INetworkHandler {
 
   @Override
   public User loadUserByPhone(String phoneNumber) throws IllegalStateException {
+    printWriter.flush();
+    printWriter.println(phoneNumber);
     return null;
   }
 
