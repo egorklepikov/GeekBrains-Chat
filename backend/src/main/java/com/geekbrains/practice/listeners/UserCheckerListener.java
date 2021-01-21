@@ -1,5 +1,7 @@
 package com.geekbrains.practice.listeners;
 
+import com.geekbrains.practice.services.HardcodedAuthService;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -8,8 +10,10 @@ public class UserCheckerListener extends Thread implements IListener {
   private final Socket socket;
   private PrintWriter printWriter;
   private Scanner scanner;
+  private final HardcodedAuthService hardcodedAuthService;
 
   public UserCheckerListener(Socket socket) {
+    hardcodedAuthService = new HardcodedAuthService();
     this.socket = socket;
     try {
       scanner = new Scanner(new InputStreamReader(socket.getInputStream()));
@@ -30,11 +34,7 @@ public class UserCheckerListener extends Thread implements IListener {
       String phoneNumber;
       while((phoneNumber = scanner.nextLine()) != null) {
         System.out.println(phoneNumber);
-        if (phoneNumber.equals("")) {
-          printWriter.println("true");
-        } else {
-          printWriter.println("false");
-        }
+        printWriter.println(hardcodedAuthService.isUserExist(phoneNumber));
       }
     }
   }
