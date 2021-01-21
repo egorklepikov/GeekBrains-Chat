@@ -1,6 +1,6 @@
 package com.geekbrains.practice.entry;
 
-import com.geekbrains.practice.services.UserCheckerAuthService;
+import com.geekbrains.practice.listeners.UserCheckerListener;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,7 +11,7 @@ public class ServerInitializer {
     try {
       ServerSocket serverSocket = new ServerSocket(8189);
       Socket socket = serverSocket.accept();
-      new UserCheckerAuthService(socket).startListening();
+      new UserCheckerListener(socket).startListening();
     } catch (IOException e) {
       e.printStackTrace();
     }
