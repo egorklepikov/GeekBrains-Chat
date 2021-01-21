@@ -1,15 +1,15 @@
-package com.geekbrains.practice.listeners;
+package com.geekbrains.practice.services;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class UserCheckerListener extends Thread implements IListener {
+public class UserCheckerAuthService extends Thread implements IAuthService {
   private final Socket socket;
   private PrintWriter printWriter;
   private Scanner scanner;
 
-  public UserCheckerListener(Socket socket) {
+  public UserCheckerAuthService(Socket socket) {
     this.socket = socket;
     try {
       scanner = new Scanner(new InputStreamReader(socket.getInputStream()));
