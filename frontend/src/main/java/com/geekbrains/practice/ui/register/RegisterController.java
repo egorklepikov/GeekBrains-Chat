@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
+  @FXML
+  private Label userNotFound;
   @FXML
   private Button continueButton;
   @FXML
@@ -72,8 +75,8 @@ public class RegisterController implements Initializable {
   public void onActionContinueButton() throws IOException {
     boolean isUserLoaded = UserController.getInstance().loadUser(phoneNumberField.getText(), userName.getText());
     if (!isUserLoaded) {
-      System.out.println("User is not defined...");
-      UserController.getInstance().initializeUser(phoneNumberField.getText(), userName.getText());
+      userNotFound.setVisible(true);
+      return;
     }
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/geekbrains/practice/ui/main_scene.fxml"));
     Parent root = fxmlLoader.load();

@@ -19,3 +19,9 @@
     -fx-font-size: 13px;
     -fx-font-family: Consolas;
 }
+
+#userNotFound {
+    -fx-text-fill: #fc4b4b;
+    -fx-font-size: 16px;
+    -fx-font-family: Consolas;
+}
