@@ -1,18 +1,18 @@
 package com.geekbrains.practice.entry;
 
-import com.geekbrains.practice.listeners.UserLoaderListener;
+import com.geekbrains.practice.listeners.ConnectivityListener;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class ServerInitializer {
   public static void main(String[] args) {
     try {
       ServerSocket serverSocket = new ServerSocket(8189);
-      Socket socket = serverSocket.accept();
-      new UserLoaderListener(socket).startListening();
-    } catch (IOException e) {
+      ConnectivityListener connectivityListener = new ConnectivityListener(serverSocket);
+      connectivityListener.startListening();
+      connectivityListener.join();
+    } catch (IOException | InterruptedException e) {
       e.printStackTrace();
     }
   }
