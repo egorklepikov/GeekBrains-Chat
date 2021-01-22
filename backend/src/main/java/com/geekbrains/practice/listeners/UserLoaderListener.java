@@ -17,8 +17,8 @@ public class UserLoaderListener extends Thread implements IListener {
     hardcodedAuthService = new HardcodedAuthService();
     this.socket = socket;
     try {
-      objectInputStream = new ObjectInputStream(socket.getInputStream());
       objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+      objectInputStream = new ObjectInputStream(socket.getInputStream());
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -3,10 +3,11 @@ package com.geekbrains.practice.model;
 import javafx.fxml.FXMLLoader;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Chat {
+public class Chat implements Serializable {
   private final String chatName;
   private final Image chatIcon;
   private final ArrayList<String> messages;

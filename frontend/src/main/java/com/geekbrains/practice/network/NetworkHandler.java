@@ -13,17 +13,18 @@ public class NetworkHandler implements INetworkHandler {
   public NetworkHandler() {
     try {
       socket = new Socket(NetworkProperties.IP_ADDRESS, NetworkProperties.PORT);
-      objectInputStream = new ObjectInputStream(socket.getInputStream());
       objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+      objectInputStream = new ObjectInputStream(socket.getInputStream());
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   @Override
-  public User loadUserByPhoneAndName(String phoneNumber, String userName) throws IllegalStateException {
+  public User loadUserByPhoneAndName(String phoneNumber, String userName) {
     try {
       objectOutputStream.writeUTF(phoneNumber + "|" + userName);
+      objectOutputStream.flush();
       return (User) objectInputStream.readObject();
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
