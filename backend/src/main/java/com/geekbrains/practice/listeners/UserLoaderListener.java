@@ -41,6 +41,7 @@ public class UserLoaderListener extends Thread implements IListener {
         } else {
           objectOutputStream.writeObject(null);
         }
+        objectOutputStream.flush();
       } catch (IOException e) {
         e.printStackTrace();
       }
