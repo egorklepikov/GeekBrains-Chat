@@ -11,7 +11,7 @@ public class Chat implements Serializable {
   private final String chatName;
   private final Image chatIcon;
   private final ArrayList<String> messages;
-  private final FXMLLoader fxmlLoader;
+  private FXMLLoader fxmlLoader;
 
   public Chat(String chatName, Image chatIcon, ArrayList<String> messages, FXMLLoader fxmlLoader) {
     this.chatName = chatName;
@@ -37,6 +37,10 @@ public class Chat implements Serializable {
 
   public FXMLLoader getFxmlLoader() {
     return fxmlLoader;
+  }
+
+  public void setFxmlLoader(FXMLLoader fxmlLoader) {
+    this.fxmlLoader = fxmlLoader;
   }
 
   @Override

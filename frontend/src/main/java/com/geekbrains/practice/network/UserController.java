@@ -26,7 +26,17 @@ public class UserController {
 
   public boolean loadUser(String phoneNumber, String userName) {
     user = networkHandler.loadUserByPhoneAndName(phoneNumber, userName);
-    return !(user == null);
+    if (user == null) {
+      return false;
+    }
+    initialeFXMLLoaders();
+    return true;
+  }
+
+  private void initialeFXMLLoaders() {
+    for (Chat chat : user.getChats()) {
+      chat.setFxmlLoader(new FXMLLoader(getClass().getResource("/com/geekbrains/practice/ui/chat_fragment.fxml")));
+    }
   }
 
   public void initializeUser(String phoneNumber, String userName) {
