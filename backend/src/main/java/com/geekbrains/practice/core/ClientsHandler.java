@@ -32,7 +32,7 @@ public class ClientsHandler {
   public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String readerPhoneNumber) {
     for (Client client : clients) {
       User currentUser = client.getUser();
-      if (currentUser.getUserName().equals(readerName) && currentUser.getPhoneNumber().equals(readerPhoneNumber)) {
+      if (currentUser.getPhoneNumber().equals(readerPhoneNumber)) {
         client.getMessagesListener().sendMessage(senderName, senderPhoneNumber, message);
         return;
       }

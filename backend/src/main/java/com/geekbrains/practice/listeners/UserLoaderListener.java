@@ -12,10 +12,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public class UserLoaderListener implements IListener {
-  private final Socket socket;
   private final FutureTask<User> future;
+  private final ObjectInputStream objectInputStream;
+  private final ObjectOutputStream objectOutputStream;
+  private final Socket socket;
 
-  public UserLoaderListener(Socket socket) {
+  public UserLoaderListener(Socket socket, ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream) {
+    this.objectOutputStream = objectOutputStream;
+    this.objectInputStream = objectInputStream;
     this.socket = socket;
     UserLoader userLoader = new UserLoader();
     future = new FutureTask(userLoader);
@@ -36,18 +40,10 @@ public class UserLoaderListener implements IListener {
   }
 
   private class UserLoader implements Callable<User> {
-    private ObjectInputStream objectInputStream;
-    private ObjectOutputStream objectOutputStream;
     private final HardcodedAuthService hardcodedAuthService;
 
     public UserLoader() {
       hardcodedAuthService = new HardcodedAuthService();
-      try {
-        objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-        objectInputStream = new ObjectInputStream(socket.getInputStream());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
     }
 
     @Override

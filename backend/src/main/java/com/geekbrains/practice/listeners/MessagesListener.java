@@ -9,8 +9,12 @@ import java.net.Socket;
 
 public class MessagesListener extends Thread implements IListener {
   private final Socket socket;
+  private final ObjectInputStream objectInputStream;
+  private final ObjectOutputStream objectOutputStream;
 
-  public MessagesListener(Socket socket) {
+  public MessagesListener(Socket socket, ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream) {
+    this.objectOutputStream = objectOutputStream;
+    this.objectInputStream = objectInputStream;
     this.socket = socket;
   }
 
@@ -23,7 +27,6 @@ public class MessagesListener extends Thread implements IListener {
   public void run() {
     MessagesReader messagesReader = new MessagesReader();
     messagesReader.start();
-    messagesReader.setDaemon(true);
     try {
       messagesReader.join();
     } catch (InterruptedException e) {
@@ -35,10 +38,8 @@ public class MessagesListener extends Thread implements IListener {
     Thread messageSenderThread = new Thread(() -> {
       try {
         //Формат сообщения для клиента. [Имя отправителя|Номер отправителя|Контент]
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeUTF(senderName + "|" + senderPhoneNumber + "|" + message);
         objectOutputStream.flush();
-        objectOutputStream.close();
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -48,16 +49,6 @@ public class MessagesListener extends Thread implements IListener {
   }
 
   private class MessagesReader extends Thread {
-    private ObjectInputStream objectInputStream;
-
-    public MessagesReader() {
-      try {
-        objectInputStream = new ObjectInputStream(socket.getInputStream());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
     @Override
     public void run() {
       while (!socket.isClosed()) {
