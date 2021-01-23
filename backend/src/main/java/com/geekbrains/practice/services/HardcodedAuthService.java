@@ -12,6 +12,16 @@ public class HardcodedAuthService implements IAuthService {
     users = new ArrayList<>();
     users.add(HardcodedUsersFactory.createFirstUser());
     users.add(HardcodedUsersFactory.createSecondUser());
+    users.add(HardcodedUsersFactory.createThirdUser());
+    users.add(HardcodedUsersFactory.createFourUser());
+    users.add(HardcodedUsersFactory.createFiveUser());
+    users.add(HardcodedUsersFactory.createSixUser());
+    users.add(HardcodedUsersFactory.createSevenUser());
+    users.add(HardcodedUsersFactory.createEightUser());
+    users.add(HardcodedUsersFactory.createNineUser());
+    users.add(HardcodedUsersFactory.createTenUser());
+    users.add(HardcodedUsersFactory.createElevenUser());
+    users.add(HardcodedUsersFactory.createThirteenUser());
   }
 
   @Override
