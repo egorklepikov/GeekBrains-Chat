@@ -5,7 +5,7 @@ import com.geekbrains.practice.model.User;
 import java.io.*;
 import java.net.Socket;
 
-public class NetworkHandler implements INetworkHandler {
+public class NetworkHandler {
   private Socket socket;
   private ObjectInputStream objectInputStream;
   private ObjectOutputStream objectOutputStream;
@@ -20,7 +20,6 @@ public class NetworkHandler implements INetworkHandler {
     }
   }
 
-  @Override
   public User loadUserByPhoneAndName(String phoneNumber, String userName) {
     try {
       objectOutputStream.writeUTF(phoneNumber + "|" + userName);
@@ -30,15 +29,5 @@ public class NetworkHandler implements INetworkHandler {
       e.printStackTrace();
     }
     return null;
-  }
-
-  @Override
-  public void registerUser(User user) {
-  }
-
-  @Override
-  public boolean isUserRegistered(String phoneNumber) {
-    //TODO implement if will be needed
-    return false;
   }
 }
