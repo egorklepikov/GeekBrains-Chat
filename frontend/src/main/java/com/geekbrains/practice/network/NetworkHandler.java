@@ -30,4 +30,20 @@ public class NetworkHandler {
     }
     return null;
   }
+
+  public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String readerPhoneNumber) {
+    try {
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.
+        append(senderName).append("|").
+        append(senderPhoneNumber).append("|").
+        append(message).append("|").
+        append(readerName).append("|").
+        append(readerPhoneNumber).append("|");
+      objectOutputStream.writeUTF(stringBuilder.toString());
+      objectOutputStream.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

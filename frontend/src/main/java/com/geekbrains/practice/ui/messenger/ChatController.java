@@ -64,7 +64,7 @@ public class ChatController implements Initializable {
   public void sendMessageWithField(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
       updateTextArea();
-      //TODO some network staff
+      sendMessage();
     } else if (keyEvent.getCode() == KeyCode.ESCAPE) {
       inputMessageField.clear();
       inputMessageField.requestFocus();
@@ -103,7 +103,25 @@ public class ChatController implements Initializable {
   @FXML
   public void clickedMouseListener() {
     updateTextArea();
-    //TODO some network staff
+    sendMessage();
+  }
+
+  private void sendMessage() {
+    StringBuilder message = new StringBuilder();
+    message.
+      append("[").
+      append(UserController.getInstance().getUser().getUserName()).
+      append("] : ").
+      append(inputMessageField.getText()).
+      append("\n"
+      );
+    UserController.getInstance().sendMessage(
+      UserController.getInstance().getUser().getUserName(),
+      UserController.getInstance().getUser().getPhoneNumber(),
+      message.toString(),
+      "",
+      UserController.getInstance().getSelectedChat().getChatName()
+    );
   }
 
   @FXML

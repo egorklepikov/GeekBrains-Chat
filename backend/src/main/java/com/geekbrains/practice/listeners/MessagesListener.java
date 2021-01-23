@@ -2,9 +2,9 @@ package com.geekbrains.practice.listeners;
 
 import com.geekbrains.practice.core.ClientsHandler;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class MessagesListener extends Thread implements IListener {
@@ -35,10 +35,10 @@ public class MessagesListener extends Thread implements IListener {
     Thread messageSenderThread = new Thread(() -> {
       try {
         //Формат сообщения для клиента. [Имя отправителя|Номер отправителя|Контент]
-        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        dataOutputStream.writeUTF(senderName + "|" + senderPhoneNumber + "|" + message);
-        dataOutputStream.flush();
-        dataOutputStream.close();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectOutputStream.writeUTF(senderName + "|" + senderPhoneNumber + "|" + message);
+        objectOutputStream.flush();
+        objectOutputStream.close();
       } catch (IOException e) {
         e.printStackTrace();
       }

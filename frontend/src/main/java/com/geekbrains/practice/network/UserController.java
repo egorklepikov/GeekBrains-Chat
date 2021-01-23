@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class UserController {
   private static UserController userController;
   private User user;
-  private NetworkHandler networkHandler;
+  private final NetworkHandler networkHandler;
 
   private UserController() {
     networkHandler = new NetworkHandler();
@@ -78,5 +78,9 @@ public class UserController {
       throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
     }
     return user.getChats();
+  }
+
+  public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String readerPhoneNumber) {
+    networkHandler.sendMessage(senderName, senderPhoneNumber, message, readerName, readerPhoneNumber);
   }
 }
