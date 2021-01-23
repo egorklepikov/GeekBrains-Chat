@@ -58,13 +58,14 @@ public class ChatController implements Initializable {
     scrollVBoxPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     Platform.runLater(() -> messagesArea.requestFocus());
     addChatsToVBox();
+    new ChatsListener().start();
   }
 
   @FXML
   public void sendMessageWithField(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
-      updateTextArea();
       sendMessage();
+      updateTextArea();
     } else if (keyEvent.getCode() == KeyCode.ESCAPE) {
       inputMessageField.clear();
       inputMessageField.requestFocus();
@@ -102,8 +103,8 @@ public class ChatController implements Initializable {
 
   @FXML
   public void clickedMouseListener() {
-    updateTextArea();
     sendMessage();
+    updateTextArea();
   }
 
   private void sendMessage() {
@@ -199,6 +200,26 @@ public class ChatController implements Initializable {
       //TODO some network staff
       newConversationTextField.setText("");
       messagesArea.requestFocus();
+    }
+  }
+
+  private class ChatsListener extends Thread {
+    @Override
+    public void run() {
+      while (true) {
+        String[] message = UserController.getInstance().getMessage().split("\\|");
+        String senderPhoneNumber = message[1];
+        String messageContent = message[2];
+        System.out.println(messageContent);
+        for (Chat chat : UserController.getInstance().getChats()) {
+          if (chat.getChatName().equals(senderPhoneNumber)) {
+            chat.getMessages().add(messageContent);
+            if (UserController.getInstance().getSelectedChat() != null) {
+              messagesArea.appendText(messageContent);
+            }
+          }
+        }
+      }
     }
   }
 }

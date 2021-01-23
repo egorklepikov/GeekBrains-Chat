@@ -83,4 +83,8 @@ public class UserController {
   public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String readerPhoneNumber) {
     networkHandler.sendMessage(senderName, senderPhoneNumber, message, readerName, readerPhoneNumber);
   }
+
+  public String getMessage() {
+    return networkHandler.getMessage();
+  }
 }

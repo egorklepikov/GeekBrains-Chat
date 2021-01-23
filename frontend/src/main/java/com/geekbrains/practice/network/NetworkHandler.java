@@ -38,4 +38,13 @@ public class NetworkHandler {
       e.printStackTrace();
     }
   }
+
+  public String getMessage() {
+    try {
+      return objectInputStream.readUTF();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
 }
