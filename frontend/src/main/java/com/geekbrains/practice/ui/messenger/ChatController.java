@@ -1,6 +1,7 @@
-package com.geekbrains.practice.ui;
+package com.geekbrains.practice.ui.messenger;
 
 import com.geekbrains.practice.model.Chat;
+import com.geekbrains.practice.network.UserController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,9 +24,9 @@ import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
   @FXML
-  private ScrollPane scrollVBoxPane;
+  private TextField newConversationTextField;
   @FXML
-  private ImageView newChatButton;
+  private ScrollPane scrollVBoxPane;
   @FXML
   private AnchorPane notificationLabelPane;
   @FXML
@@ -51,30 +52,41 @@ public class ChatController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     sendButton.setImage(new Image("/assets/send_message.png"));
     closeButton.setImage(new Image("/assets/close_button.jpg"));
-    newChatButton.setImage(new Image("/assets/new_chat.jpg"));
     bottomPane.setVisible(false);
     scrollVBoxPane.setFitToWidth(true);
     scrollVBoxPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     scrollVBoxPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     Platform.runLater(() -> messagesArea.requestFocus());
-    ChatsLoader.getInstance().loadChats();
     addChatsToVBox();
+    new ChatsListener().start();
   }
 
   @FXML
   public void sendMessageWithField(KeyEvent keyEvent) {
     if (keyEvent.getCode() == KeyCode.ENTER) {
-      messagesArea.appendText(inputMessageField.getText() + "\n");
-      ChatsLoader.getInstance().getSelectedChat().getMessages().add(inputMessageField.getText());
-      ChatFragment chatFragment = ChatsLoader.getInstance().getSelectedChat().getFxmlLoader().getController();
-      chatFragment.setLastMessage(inputMessageField.getText());
-      inputMessageField.clear();
-      inputMessageField.requestFocus();
-      //TODO some network staff
+      sendMessage();
+      updateTextArea();
     } else if (keyEvent.getCode() == KeyCode.ESCAPE) {
       inputMessageField.clear();
       inputMessageField.requestFocus();
     }
+  }
+
+  private void updateTextArea() {
+    StringBuilder message = new StringBuilder();
+    message.
+      append("[").
+      append(UserController.getInstance().getUser().getUserName()).
+      append("] : ").
+      append(inputMessageField.getText()).
+      append("\n"
+    );
+    messagesArea.appendText(message.toString());
+    UserController.getInstance().getSelectedChat().getMessages().add(message.toString());
+    ChatFragment chatFragment = UserController.getInstance().getSelectedChat().getFxmlLoader().getController();
+    chatFragment.setLastMessage(message.toString());
+    inputMessageField.clear();
+    inputMessageField.requestFocus();
   }
 
   @FXML
@@ -91,13 +103,26 @@ public class ChatController implements Initializable {
 
   @FXML
   public void clickedMouseListener() {
-    messagesArea.appendText(inputMessageField.getText() + "\n");
-    ChatsLoader.getInstance().getSelectedChat().getMessages().add(inputMessageField.getText());
-    ChatFragment chatFragment = ChatsLoader.getInstance().getSelectedChat().getFxmlLoader().getController();
-    chatFragment.setLastMessage(inputMessageField.getText());
-    inputMessageField.clear();
-    inputMessageField.requestFocus();
-    //TODO some network staff
+    sendMessage();
+    updateTextArea();
+  }
+
+  private void sendMessage() {
+    StringBuilder message = new StringBuilder();
+    message.
+      append("[").
+      append(UserController.getInstance().getUser().getUserName()).
+      append("] : ").
+      append(inputMessageField.getText()).
+      append("\n"
+      );
+    UserController.getInstance().sendMessage(
+      UserController.getInstance().getUser().getUserName(),
+      UserController.getInstance().getUser().getPhoneNumber(),
+      message.toString(),
+      "",
+      UserController.getInstance().getSelectedChat().getChatName()
+    );
   }
 
   @FXML
@@ -144,7 +169,7 @@ public class ChatController implements Initializable {
   private void addChatsToVBox() {
     int fragmentIndex = 0;
     chats.getChildren().clear();
-    for (Chat chat : ChatsLoader.getInstance().getChats()) {
+    for (Chat chat : UserController.getInstance().getChats()) {
       fragmentIndex = addChatFragment(chat, fragmentIndex);
     }
   }
@@ -166,21 +191,35 @@ public class ChatController implements Initializable {
     return fragmentIndex;
   }
 
-  public void clickedMouseNewChatListener() {
-    addChatFragment(
-      ChatsLoader.getInstance().addNewChat(),
-      ChatsLoader.getInstance().getChats().size() - 1
-    );
-    //TODO some network staff
+  public void onNewConversationKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode() == KeyCode.ENTER) {
+      addChatFragment(
+        UserController.getInstance().addNewChat(newConversationTextField.getText()),
+        UserController.getInstance().getChats().size() - 1
+      );
+      //TODO some network staff
+      newConversationTextField.setText("");
+      messagesArea.requestFocus();
+    }
   }
 
-  public void enterMouseNewChatListener() {
-    newChatButton.setScaleX(1.1);
-    newChatButton.setScaleY(1.1);
-  }
-
-  public void exitMouseNewChatListener() {
-    newChatButton.setScaleX(1);
-    newChatButton.setScaleY(1);
+  private class ChatsListener extends Thread {
+    @Override
+    public void run() {
+      while (true) {
+        String[] message = UserController.getInstance().getMessage().split("\\|");
+        String senderPhoneNumber = message[1];
+        String messageContent = message[2];
+        System.out.println(messageContent);
+        for (Chat chat : UserController.getInstance().getChats()) {
+          if (chat.getChatName().equals(senderPhoneNumber)) {
+            chat.getMessages().add(messageContent);
+            if (UserController.getInstance().getSelectedChat() != null) {
+              messagesArea.appendText(messageContent);
+            }
+          }
+        }
+      }
+    }
   }
 }

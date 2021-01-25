@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="chatPane" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onChatSelected" prefHeight="50.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.geekbrains.practice.ui.ChatFragment">
+<AnchorPane fx:id="chatPane" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onChatSelected" prefHeight="50.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.geekbrains.practice.ui.messenger.ChatFragment">
     <stylesheets>
         <URL value="@chat_fragment.css" />
     </stylesheets>

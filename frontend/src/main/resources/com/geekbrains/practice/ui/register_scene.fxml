@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.geekbrains.practice.ui.register.RegisterController">
+    <stylesheets>
+        <URL value="@register_scene.css" />
+    </stylesheets>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="376.0" minHeight="10.0" prefHeight="375.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <AnchorPane prefHeight="375.0" prefWidth="500.0" GridPane.rowIndex="1">
+        <!--suppress JavaFxUnresolvedFxIdReference -->
+        <Label fx:id="welcomeMessage" layoutX="232.0" layoutY="68.0" prefHeight="17.0" prefWidth="156.0" text="Welcome to Messenger!" textAlignment="CENTER" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="232.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="68.0" />
+        <Button fx:id="continueButton" layoutX="263.0" layoutY="332.0" mnemonicParsing="false" onAction="#onActionContinueButton" text="Continue" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" />
+        <TextField fx:id="phoneNumberField" layoutX="226.0" layoutY="138.0" onKeyPressed="#onKeyPressedPhoneNumber" prefHeight="29.0" prefWidth="291.0" text="+ 7 913 021 22 37" />
+        <!--suppress JavaFxUnresolvedFxIdReference -->
+        <Label fx:id="enterNameLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="84.0" layoutY="179.0" prefHeight="17.0" prefWidth="136.0" text="Enter name:" textAlignment="RIGHT" />
+        <!--suppress JavaFxUnresolvedFxIdReference -->
+        <Label fx:id="enterPhoneNumber" alignment="CENTER_RIGHT" layoutX="84.0" layoutY="144.0" text="Enter phone number:" />
+        <TextField fx:id="userName" layoutX="226.0" layoutY="175.0" onKeyPressed="#onKeyPressedUserName" prefHeight="29.0" prefWidth="291.0" text="Egor Klepikov" />
+      <Label fx:id="userNotFound" alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="256.0" text="User not found!" visible="false">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font></Label>
+    </AnchorPane>
+    <!--suppress JavaFxUnresolvedFxIdReference -->
+    <AnchorPane fx:id="topPane" onMouseDragged="#onMouseDraggedTopPanel" onMousePressed="#onMousePressedTopPanel" prefHeight="200.0" prefWidth="200.0">
+        <ImageView fx:id="closeButton" fitHeight="15.0" fitWidth="15.0" layoutX="581.0" layoutY="4.0" onMouseClicked="#onMouseClickCloseButtonListener" onMouseEntered="#onMouseEnteredExit" onMouseExited="#onMouseExitedExit" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0" />
+    </AnchorPane>
+</GridPane>
