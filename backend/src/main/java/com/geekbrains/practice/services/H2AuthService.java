@@ -1,6 +1,7 @@
 package com.geekbrains.practice.services;
 
 import com.geekbrains.practice.database.H2DatabaseConnectivity;
+import com.geekbrains.practice.database.H2InMemoryPreparation;
 import com.geekbrains.practice.model.User;
 
 import java.sql.SQLException;
@@ -15,6 +16,9 @@ public class H2AuthService implements IAuthService {
     try {
       h2DatabaseConnectivity.connect();
       statement = h2DatabaseConnectivity.getConnection().createStatement();
+      H2InMemoryPreparation h2InMemoryPreparation = new H2InMemoryPreparation(statement);
+      h2InMemoryPreparation.createTable();
+      h2InMemoryPreparation.addUsers();
     } catch (ClassNotFoundException | SQLException e) {
       System.out.println("Connection to H2 database failed");
       e.printStackTrace();
