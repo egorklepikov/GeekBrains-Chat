@@ -16,6 +16,7 @@ public class H2AuthService implements IAuthService {
       h2DatabaseConnectivity.connect();
       statement = h2DatabaseConnectivity.getConnection().createStatement();
     } catch (ClassNotFoundException | SQLException e) {
+      System.out.println("Connection to H2 database failed");
       e.printStackTrace();
     }
   }
@@ -27,6 +28,10 @@ public class H2AuthService implements IAuthService {
 
   @Override
   public User getUserByPhoneAndName(String phoneNumber, String userName) {
+    if (!h2DatabaseConnectivity.isConnected()) {
+      return null;
+    }
+
     return null;
   }
 }

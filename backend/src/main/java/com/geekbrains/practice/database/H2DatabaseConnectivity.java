@@ -11,6 +11,7 @@ public class H2DatabaseConnectivity implements IDatabaseConnectivity {
   public void connect() throws ClassNotFoundException, SQLException {
     Class.forName ("org.h2.Driver");
     connection = DriverManager.getConnection(H2Properties.DB_URL, H2Properties.LOGIN, H2Properties.PASSWORD);
+    System.out.println("Connection to H2 db succesfull!");
   }
 
   @Override
