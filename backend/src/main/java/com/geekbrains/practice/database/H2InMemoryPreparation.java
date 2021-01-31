@@ -1,13 +1,18 @@
 package com.geekbrains.practice.database;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class H2InMemoryPreparation {
-  private final Statement statement;
+  private Statement statement;
 
-  public H2InMemoryPreparation(Statement statement) {
-    this.statement = statement;
+  public H2InMemoryPreparation(Connection connection) {
+    try {
+      statement = connection.createStatement();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
   }
 
   public void createTable() {

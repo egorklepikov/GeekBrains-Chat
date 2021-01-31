@@ -1,28 +1,13 @@
 package com.geekbrains.practice.services;
 
-import com.geekbrains.practice.database.H2DatabaseConnectivity;
-import com.geekbrains.practice.database.H2InMemoryPreparation;
 import com.geekbrains.practice.model.User;
 
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class H2AuthService implements IAuthService {
-  private final H2DatabaseConnectivity h2DatabaseConnectivity;
   private Statement statement;
 
   public H2AuthService() {
-    h2DatabaseConnectivity = new H2DatabaseConnectivity();
-    try {
-      h2DatabaseConnectivity.connect();
-      statement = h2DatabaseConnectivity.getConnection().createStatement();
-      H2InMemoryPreparation h2InMemoryPreparation = new H2InMemoryPreparation(statement);
-      h2InMemoryPreparation.createTable();
-      h2InMemoryPreparation.addUsers();
-    } catch (ClassNotFoundException | SQLException e) {
-      System.out.println("Connection to H2 database failed");
-      e.printStackTrace();
-    }
   }
 
   @Override
@@ -32,10 +17,6 @@ public class H2AuthService implements IAuthService {
 
   @Override
   public User getUserByPhoneAndName(String phoneNumber, String userName) {
-    if (!h2DatabaseConnectivity.isConnected()) {
-      return null;
-    }
-
     return null;
   }
 }
