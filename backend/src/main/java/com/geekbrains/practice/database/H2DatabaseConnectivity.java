@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySQLDatabaseConnectivity implements IDatabaseConnectivity {
+public class H2DatabaseConnectivity implements IDatabaseConnectivity {
   private Connection connection;
 
   @Override
   public void connect() throws ClassNotFoundException, SQLException {
-    Class.forName("com.mysql.jdbc.Driver");
-    connection = DriverManager.getConnection(MySQLProperties.DB_URL, MySQLProperties.LOGIN, MySQLProperties.PASSWORD);
+    Class.forName ("org.h2.Driver");
+    connection = DriverManager.getConnection(H2Properties.DB_URL, H2Properties.LOGIN, H2Properties.PASSWORD);
   }
 
   @Override
