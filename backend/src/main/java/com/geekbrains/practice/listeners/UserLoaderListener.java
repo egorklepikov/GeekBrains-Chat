@@ -54,15 +54,10 @@ public class UserLoaderListener implements IListener {
           String[] credentials = objectInputStream.readUTF().split("\\|");
           String phoneNumber = credentials[0];
           String userName = credentials[1];
-          if (h2AuthService.isUserExist(phoneNumber, userName)) {
-            user = h2AuthService.getUserByPhoneAndName(phoneNumber, userName);
-            objectOutputStream.writeObject(user);
-            objectOutputStream.flush();
-            return user;
-          } else {
-            objectOutputStream.writeObject(null);
-            objectOutputStream.flush();
-          }
+          user = h2AuthService.getUserByPhoneAndName(phoneNumber, userName);
+          objectOutputStream.writeObject(user);
+          objectOutputStream.flush();
+          return user;
         } catch (IOException e) {
           e.printStackTrace();
         }
