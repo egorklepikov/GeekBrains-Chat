@@ -3,6 +3,7 @@ package com.geekbrains.practice.network;
 import com.geekbrains.practice.model.Chat;
 import com.geekbrains.practice.model.User;
 import javafx.fxml.FXMLLoader;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -86,22 +87,48 @@ public class UserController {
 
   public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String readerPhoneNumber) {
     networkHandler.sendMessage(senderName, senderPhoneNumber, message, readerName, readerPhoneNumber);
+    saveLocalHistory();
   }
 
   public String getMessage() {
     return networkHandler.getMessage();
   }
 
+  public void saveLocalHistory() {
+    if (prepareFolder()) {
+      for (Chat chat : user.getChats()) {
+        try (
+          FileOutputStream fileOutputStream = new FileOutputStream("localhistory/" + user.getPhoneNumber().replaceAll("\\s+","") + user.getUserName().replaceAll("\\s+","") + "/" + chat.getChatName());
+          ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream))  {
+          objectOutputStream.writeObject(chat);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private boolean prepareFolder() {
+    try {
+      File file = new File("localhistory/" + user.getPhoneNumber().replaceAll("\\s+","") + user.getUserName().replaceAll("\\s+",""));
+      FileUtils.deleteDirectory(file);
+      if (file.mkdir()) {
+        return true;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   public void loadLocalHistory() {
-    File file = new File("localhistory/" + user.getPhoneNumber().trim() + user.getUserName().trim());
+    File file = new File("localhistory/" + user.getPhoneNumber().replaceAll("\\s+","") + user.getUserName().replaceAll("\\s+",""));
     if (!file.exists() || !file.isDirectory()) {
       return;
     }
     ArrayList<File> chatsHistory = (ArrayList<File>) Arrays.asList(Objects.requireNonNull(file.listFiles()));
     for (File chat : chatsHistory) {
-      try {
-        FileInputStream fileInputStream = new FileInputStream(chat);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+      try (FileInputStream fileInputStream = new FileInputStream(chat); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
         user.getChats().add((Chat) objectInputStream.readObject());
       } catch (IOException | ClassNotFoundException e) {
         e.printStackTrace();
