@@ -4,7 +4,10 @@ import com.geekbrains.practice.model.Chat;
 import com.geekbrains.practice.model.User;
 import javafx.fxml.FXMLLoader;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserController {
@@ -28,6 +31,7 @@ public class UserController {
     if (user == null) {
       return false;
     }
+    loadLocalHistory();
     initialeFXMLLoaders();
     return true;
   }
@@ -86,5 +90,22 @@ public class UserController {
 
   public String getMessage() {
     return networkHandler.getMessage();
+  }
+
+  public void loadLocalHistory() {
+    File file = new File("localhistory/" + user.getPhoneNumber().trim() + user.getUserName().trim());
+    if (!file.exists() || !file.isDirectory()) {
+      return;
+    }
+    ArrayList<File> chatsHistory = (ArrayList<File>) Arrays.asList(Objects.requireNonNull(file.listFiles()));
+    for (File chat : chatsHistory) {
+      try {
+        FileInputStream fileInputStream = new FileInputStream(chat);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        user.getChats().add((Chat) objectInputStream.readObject());
+      } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
