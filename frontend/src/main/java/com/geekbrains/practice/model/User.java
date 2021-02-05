@@ -52,6 +52,15 @@ public class User implements Serializable {
     return chats.get(selectedChatIndex);
   }
 
+  public Chat getChatByName(String chatName) {
+    for (Chat chat : chats) {
+      if (chat.getChatName().equals(chatName)) {
+        return chat;
+      }
+    }
+    return null;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

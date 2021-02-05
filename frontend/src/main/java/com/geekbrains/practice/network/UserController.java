@@ -81,6 +81,13 @@ public class UserController {
     return user.getSelectedChat();
   }
 
+  public Chat getChatByName(String chatName) {
+    if (user == null) {
+      throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
+    }
+    return user.getChatByName(chatName);
+  }
+
   public CopyOnWriteArrayList<Chat> getChats() {
     if (user == null) {
       throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
