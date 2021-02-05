@@ -5,7 +5,6 @@ import com.geekbrains.practice.model.User;
 import com.geekbrains.practice.network.UserController;
 
 import java.io.*;
-import java.util.Iterator;
 import java.util.Objects;
 
 public class UserDataLoader {
