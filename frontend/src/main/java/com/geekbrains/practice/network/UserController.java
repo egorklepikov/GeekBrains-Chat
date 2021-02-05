@@ -4,12 +4,8 @@ import com.geekbrains.practice.UserDataLoader;
 import com.geekbrains.practice.model.Chat;
 import com.geekbrains.practice.model.User;
 import javafx.fxml.FXMLLoader;
-import org.apache.commons.io.FileUtils;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserController {
