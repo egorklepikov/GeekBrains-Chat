@@ -93,15 +93,11 @@ public class UserController {
 
   public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String chatName) {
     networkHandler.sendMessage(senderName, senderPhoneNumber, message, readerName, chatName);
-    saveLocalHistory(chatName);
+    userDataLoader.saveLocalHistory(chatName);
   }
 
   public String getMessage() {
     return networkHandler.getMessage();
-  }
-
-  public void saveLocalHistory(String chatName) {
-    userDataLoader.saveLocalHistory(chatName);
   }
 
   public void loadLocalHistory() {
