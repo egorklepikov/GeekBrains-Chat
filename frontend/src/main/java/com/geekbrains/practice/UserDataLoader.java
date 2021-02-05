@@ -5,6 +5,7 @@ import com.geekbrains.practice.model.User;
 import com.geekbrains.practice.network.UserController;
 
 import java.io.*;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class UserDataLoader {
@@ -13,7 +14,7 @@ public class UserDataLoader {
 
   public UserDataLoader(User user) {
     this.user = user;
-    this.historyLocation = "C:\\Users\\egork\\IdeaProjects\\GeekBrains - Chat\\frontend\\src\\localhistory\\" + user.getPhoneNumber().replaceAll("\\s+", "") + user.getUserName().replaceAll("\\s+", "");
+    this.historyLocation = ".\\frontend\\src\\localhistory\\" + user.getPhoneNumber().replaceAll("\\s+", "") + user.getUserName().replaceAll("\\s+", "");
   }
 
   public void saveLocalHistory(String chatName) {
@@ -54,9 +55,18 @@ public class UserDataLoader {
     File[] chatsHistory = file.listFiles();
     for (File chat : Objects.requireNonNull(chatsHistory)) {
       try (FileInputStream fileInputStream = new FileInputStream(chat); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-        user.getChats().add((Chat) objectInputStream.readObject());
+        Chat loadedChat = (Chat) objectInputStream.readObject();
+        updateUserChat(loadedChat);
       } catch (IOException | ClassNotFoundException e) {
         e.printStackTrace();
+      }
+    }
+  }
+
+  private void updateUserChat(Chat loadedChat) {
+    for (int chatIndex = 0; chatIndex < user.getChats().size(); chatIndex++) {
+      if (loadedChat.getChatName().equals(user.getChats().get(chatIndex).getChatName())) {
+        user.getChats().set(chatIndex, loadedChat);
       }
     }
   }
