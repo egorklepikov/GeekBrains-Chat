@@ -1,7 +1,7 @@
 package com.geekbrains.practice.listeners;
 
 import com.geekbrains.practice.model.User;
-import com.geekbrains.practice.services.HardcodedAuthService;
+import com.geekbrains.practice.services.H2AuthService;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,10 +40,10 @@ public class UserLoaderListener implements IListener {
   }
 
   private class UserLoader implements Callable<User> {
-    private final HardcodedAuthService hardcodedAuthService;
+    private final H2AuthService h2AuthService;
 
     public UserLoader() {
-      hardcodedAuthService = new HardcodedAuthService();
+      h2AuthService = new H2AuthService();
     }
 
     @Override
@@ -54,15 +54,10 @@ public class UserLoaderListener implements IListener {
           String[] credentials = objectInputStream.readUTF().split("\\|");
           String phoneNumber = credentials[0];
           String userName = credentials[1];
-          if (hardcodedAuthService.isUserExist(phoneNumber, userName)) {
-            user = hardcodedAuthService.getUserByPhoneAndName(phoneNumber, userName);
-            objectOutputStream.writeObject(user);
-            objectOutputStream.flush();
-            return user;
-          } else {
-            objectOutputStream.writeObject(null);
-            objectOutputStream.flush();
-          }
+          user = h2AuthService.getUserByPhoneAndName(phoneNumber, userName);
+          objectOutputStream.writeObject(user);
+          objectOutputStream.flush();
+          return user;
         } catch (IOException e) {
           e.printStackTrace();
         }
