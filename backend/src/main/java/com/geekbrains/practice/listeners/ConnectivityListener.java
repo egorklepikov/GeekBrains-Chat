@@ -5,16 +5,11 @@ import com.geekbrains.practice.core.ClientsHandler;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class ConnectivityListener extends Thread implements IListener {
+public class ConnectivityListener implements Runnable {
   private final ServerSocket serverSocket;
 
   public ConnectivityListener(ServerSocket serverSocket) {
     this.serverSocket = serverSocket;
-  }
-
-  @Override
-  public void startListening() {
-    start();
   }
 
   @Override
