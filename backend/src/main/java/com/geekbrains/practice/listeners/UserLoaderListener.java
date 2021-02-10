@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
-public class UserLoaderListener implements IListener {
+public class UserLoaderListener {
   private final FutureTask<User> future;
   private final ObjectInputStream objectInputStream;
   private final ObjectOutputStream objectOutputStream;
@@ -23,6 +23,7 @@ public class UserLoaderListener implements IListener {
     this.socket = socket;
     UserLoader userLoader = new UserLoader();
     future = new FutureTask(userLoader);
+    future.run();
   }
 
   public User getUser() {
@@ -32,11 +33,6 @@ public class UserLoaderListener implements IListener {
       e.printStackTrace();
     }
     return null;
-  }
-
-  @Override
-  public void startListening() {
-    future.run();
   }
 
   private class UserLoader implements Callable<User> {

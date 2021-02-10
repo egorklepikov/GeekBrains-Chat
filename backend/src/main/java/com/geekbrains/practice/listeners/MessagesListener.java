@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class MessagesListener extends Thread implements IListener {
+public class MessagesListener implements Runnable {
   private final Socket socket;
   private final ObjectInputStream objectInputStream;
   private final ObjectOutputStream objectOutputStream;
@@ -16,11 +16,6 @@ public class MessagesListener extends Thread implements IListener {
     this.objectOutputStream = objectOutputStream;
     this.objectInputStream = objectInputStream;
     this.socket = socket;
-  }
-
-  @Override
-  public void startListening() {
-    start();
   }
 
   @Override

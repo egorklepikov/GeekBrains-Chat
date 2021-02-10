@@ -1,6 +1,7 @@
 package com.geekbrains.practice.model;
 
 import com.geekbrains.practice.listeners.MessagesListener;
+import com.geekbrains.practice.services.ThreadsExecutionService;
 import com.geekbrains.practice.listeners.UserLoaderListener;
 
 import java.io.IOException;
@@ -21,9 +22,8 @@ public class Client {
       objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
       objectInputStream = new ObjectInputStream(socket.getInputStream());
       userLoaderListener = new UserLoaderListener(socket, objectOutputStream, objectInputStream);
-      userLoaderListener.startListening();
       messagesListener = new MessagesListener(socket, objectOutputStream, objectInputStream);
-      messagesListener.startListening();
+      ThreadsExecutionService.getInstance().addTaskToExecutionsQueue(messagesListener);
     } catch (IOException e) {
       e.printStackTrace();
     }
