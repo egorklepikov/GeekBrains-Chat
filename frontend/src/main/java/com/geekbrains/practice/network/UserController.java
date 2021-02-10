@@ -1,5 +1,6 @@
 package com.geekbrains.practice.network;
 
+import com.geekbrains.practice.UserDataLoader;
 import com.geekbrains.practice.model.Chat;
 import com.geekbrains.practice.model.User;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ public class UserController {
   private static UserController userController;
   private User user;
   private final NetworkHandler networkHandler;
+  private UserDataLoader userDataLoader;
 
   private UserController() {
     networkHandler = new NetworkHandler();
@@ -28,6 +30,8 @@ public class UserController {
     if (user == null) {
       return false;
     }
+    userDataLoader = new UserDataLoader(user);
+    loadLocalHistory();
     initialeFXMLLoaders();
     return true;
   }
@@ -73,6 +77,13 @@ public class UserController {
     return user.getSelectedChat();
   }
 
+  public Chat getChatByName(String chatName) {
+    if (user == null) {
+      throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
+    }
+    return user.getChatByName(chatName);
+  }
+
   public CopyOnWriteArrayList<Chat> getChats() {
     if (user == null) {
       throw new IllegalArgumentException("User is not loaded! Call `loadUser` first.");
@@ -80,11 +91,16 @@ public class UserController {
     return user.getChats();
   }
 
-  public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String readerPhoneNumber) {
-    networkHandler.sendMessage(senderName, senderPhoneNumber, message, readerName, readerPhoneNumber);
+  public void sendMessage(String senderName, String senderPhoneNumber, String message, String readerName, String chatName) {
+    networkHandler.sendMessage(senderName, senderPhoneNumber, message, readerName, chatName);
+    userDataLoader.saveLocalHistory(chatName);
   }
 
   public String getMessage() {
     return networkHandler.getMessage();
+  }
+
+  public void loadLocalHistory() {
+    userDataLoader.loadLocalHistory();
   }
 }

@@ -11,7 +11,7 @@ public class Chat implements Serializable {
   private final String chatName;
   private final Image chatIcon;
   private final ArrayList<String> messages;
-  private FXMLLoader fxmlLoader;
+  private transient FXMLLoader fxmlLoader;
 
   public Chat(String chatName, Image chatIcon, ArrayList<String> messages, FXMLLoader fxmlLoader) {
     this.chatName = chatName;

@@ -103,8 +103,8 @@ public class ChatController implements Initializable {
 
   @FXML
   public void clickedMouseListener() {
-    sendMessage();
     updateTextArea();
+    sendMessage();
   }
 
   private void sendMessage() {

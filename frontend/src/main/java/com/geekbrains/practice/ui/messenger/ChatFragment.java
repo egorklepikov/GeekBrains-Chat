@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ChatFragment {
   @FXML
@@ -51,7 +54,13 @@ public class ChatFragment {
     if (chat == null || chat.getMessages() == null) {
       throw new IllegalArgumentException();
     }
-    for (String message : chat.getMessages()) {
+    List<String> lastMessages;
+    if (chat.getMessages().size() <= 100) {
+      lastMessages = chat.getMessages();
+    } else {
+      lastMessages = chat.getMessages().subList(chat.getMessages().size() - 100, chat.getMessages().size());
+    }
+    for (String message : lastMessages) {
       chatController.getMessagesArea().appendText(message + "\n");
     }
   }

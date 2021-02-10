@@ -10,7 +10,6 @@ public class HardcodedUsersFactory {
   public static User createFirstUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 923 120 22 73", null, firstChatMessages, null));
     chats.add(new Chat("+ 7 923 120 22 1", null, firstChatMessages, null));
     chats.add(new Chat("+ 7 923 120 22 2", null, firstChatMessages, null));
@@ -29,7 +28,6 @@ public class HardcodedUsersFactory {
   public static User createSecondUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("Hello");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 73", "Sergey Gavrilov", chats);
   }
@@ -37,7 +35,6 @@ public class HardcodedUsersFactory {
   public static User createThirdUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 1", "Test1", chats);
   }
@@ -45,7 +42,6 @@ public class HardcodedUsersFactory {
   public static User createFourUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 2", "Test2", chats);
   }
@@ -53,7 +49,6 @@ public class HardcodedUsersFactory {
   public static User createFiveUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 3", "Test3", chats);
   }
@@ -61,7 +56,6 @@ public class HardcodedUsersFactory {
   public static User createSixUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 4", "Test4", chats);
   }
@@ -69,7 +63,6 @@ public class HardcodedUsersFactory {
   public static User createSevenUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 5", "Test5", chats);
   }
@@ -77,7 +70,6 @@ public class HardcodedUsersFactory {
   public static User createEightUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 6", "Test6", chats);
   }
@@ -85,7 +77,6 @@ public class HardcodedUsersFactory {
   public static User createNineUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 7", "Test7", chats);
   }
@@ -93,7 +84,6 @@ public class HardcodedUsersFactory {
   public static User createTenUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 8", "Test8", chats);
   }
@@ -101,7 +91,6 @@ public class HardcodedUsersFactory {
   public static User createElevenUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 9", "Test9", chats);
   }
@@ -109,7 +98,6 @@ public class HardcodedUsersFactory {
   public static User createTwelveUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 10", "Test10", chats);
   }
@@ -117,7 +105,6 @@ public class HardcodedUsersFactory {
   public static User createThirteenUser() {
     CopyOnWriteArrayList<Chat> chats = new CopyOnWriteArrayList<>();
     ArrayList<String> firstChatMessages = new ArrayList<>();
-    firstChatMessages.add("TEST");
     chats.add(new Chat("+ 7 913 021 22 37", null, firstChatMessages, null));
     return new User("+ 7 923 120 22 11", "Test11", chats);
   }
